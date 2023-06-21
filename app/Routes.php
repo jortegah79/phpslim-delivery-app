@@ -11,6 +11,7 @@ return function(App $app){
     $app->group('/api/users', function(RouteCollectorProxy $group){
        
         $group->get('/all',UserController::class.':getAll'); 
+        
         $group->post('/register',UserController::class.':register'); 
     });  
 

@@ -18,6 +18,7 @@ class   UserController
 
                 return $response->withStatus(200);
         }
+        
         public function register(Request $request, Response $response, $args)
         {
                 $data = (array)$request->getParsedBody();
