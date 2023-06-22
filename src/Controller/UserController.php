@@ -18,6 +18,19 @@ class   UserController
 
                 return $response->withStatus(200);
         }
+
+        public function findById(Request $request, Response $response, $args)
+        {
+                $data =(array)$request->getParsedBody();
+
+                $data=$args;
+
+                $user=UserModel::finById($data['id']);
+
+                $response->getBody()->write(json_encode($user), JSON_PRETTY_PRINT);
+
+                return $response->withStatus(200);
+        }
         
         public function register(Request $request, Response $response, $args)
         {

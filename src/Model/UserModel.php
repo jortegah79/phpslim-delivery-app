@@ -13,34 +13,41 @@ class UserModel extends MysqlModel
     public static function getAll()
     {
 
-        $sql = "select * from users";
+        $sql = "select * from ". static::$tabla;
 
         return static::executeGetQuery($sql);
     }
+
+    public static function finById($id)
+    {
+
+        $sql = "select id,email,name,lastname,image,phone,password,session_token from ".static::$tabla ." where id='".$id."'";
+
+        return static::executeGetQuery($sql);
+    }
+
     public static function create($user)
     {
-        $sql="Select * from users where email='".$user['email']."'";
+        $sql = "Select * from users where email='" . $user['email'] . "'";
 
-        $data=static::executeGetQuery($sql);         
-       
-        if(count($data)>0){
-            
-        return '0';   
-        
-    }else{
+        $data = static::executeGetQuery($sql);
 
-        $pass=static::encriptar($user['password']);
+        if (count($data) > 0) {
 
-        $sql = "insert into users(email,name,lastname,phone,password,created_at,updated_at) values('" . $user['email'] . "','" .
-            $user['name'] . "','" . $user['lastname'] . "','" . $user['phone'] . "','" . $pass . "',
+            return "0";
+        } else {
+
+            $pass = static::encriptar($user['password']);
+
+            $sql = "insert into users(email,name,lastname,phone,password,created_at,updated_at) values('" . $user['email'] . "','" .
+                $user['name'] . "','" . $user['lastname'] . "','" . $user['phone'] . "','" . $pass . "',
     '" . date('Y-m-d H:i:s') . "','" . date('Y-m-d H:i:s') . "')";
 
-        static::executeQuery($sql);
+            static::executeQuery($sql);
 
-        $data = static::getLast();
+            $data = static::getLast();
 
-        return $data['id'] >0 ? $data['id'] : "0";        
-           
+            return $data['id'] > 0 ? $data['id'] : "0";
         }
     }
 }
