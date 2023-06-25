@@ -30,63 +30,13 @@ class   UserController
 
     $user = UserModel::finById($data['id']);
 
-    $response->getBody()->write(json_encode($user), JSON_PRETTY_PRINT);
+               $id = UserModel::create($data);
+                     
+                $response->getBody()->write(strval($id));
 
-    return $response->withStatus(200);
-  }
-
-  public function register(Request $request, Response $response, $args)
-  {
-    $data = (array)$request->getParsedBody();
-
-    $id = UserModel::create($data);
-
-    if ($id == 0) {
-
-      $response->getBody()->write(strval($id));
-
-      return $response->withStatus(401);
-    } else {
-
-      $response->getBody()->write(strval($id));
-
-      return $response->withStatus(201);
-    }
-
-    $response->getBody()->write(strval($id));
-
-    return $response;
-  }
-
-  public function login(Request $request, Response $response, $args)
-  {
-    $data = (array)$request->getParsedBody();
-
-    $datos = UserModel::getByEmail($data['email']);
-
-    if (count($datos) > 0) {
-
-      if (MysqlModel::verifica_password($data['password'], $datos[0]['password'])) {
-
-        $datos_tokenizados = Token::tokenizar($datos[0]);
-
-        $response->getBody()->write(json_encode($datos_tokenizados));
-
-        return $response->withStatus(200);
-
-      } else {
-
-        $response->getBody()->write(json_encode([], JSON_PRETTY_PRINT));
-
-        return $response->withStatus(401);
-      }
-
-    }else{
-
-      $response->getBody()->write(json_encode([]), JSON_PRETTY_PRINT);
-
-      return $response->withStatus(401);
-    }
-
-  }
+                return $response->withHeader('Access-Control-Allow-Origin', '*')
+            ->withHeader('Access-Control-Allow-Headers', 'X-Requested-With, Content-Type, Accept, Origin, Authorization')
+            ->withHeader('Access-Control-Allow-Methods', 'POST');
+                              
+        }
 }
