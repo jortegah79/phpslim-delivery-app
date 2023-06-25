@@ -77,14 +77,14 @@ class   UserController
       } else {
 
         
-        $response->getBody()->write(json_encode([], JSON_PRETTY_PRINT));
+        $response->getBody()->write("La contraseña no es correcta");
 
         return $response->withStatus(401);
       }
 
     }else{
 
-      $response->getBody()->write(json_encode([]), JSON_PRETTY_PRINT);
+      $response->getBody()->write("Usuario incorrecto.");
 
       return $response->withStatus(401);
     }
