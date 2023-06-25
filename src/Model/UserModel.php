@@ -50,4 +50,17 @@ class UserModel extends MysqlModel
             return $data['id'] > 0 ? $data['id'] : "0";
         }
     }
+    public static function getByEmail($email)
+    {
+
+        $sql = "select * from ". static::$tabla . " where email='".$email."'";;
+
+        return static::executeGetQuery($sql);
+    }
+    public static function login()
+    {
+        $sql = "select * from ". static::$tabla;
+
+        return static::executeGetQuery($sql);
+    }
 }

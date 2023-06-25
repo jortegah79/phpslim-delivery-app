@@ -13,6 +13,8 @@ return function(App $app){
         $group->get('/all',UserController::class.':getAll'); 
         
         $group->post('/register',UserController::class.':register'); 
+
+        $group->post('/login',UserController::class.':login'); 
     });  
 
 

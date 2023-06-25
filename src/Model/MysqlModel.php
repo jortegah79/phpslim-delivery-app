@@ -49,7 +49,11 @@ public static function encriptar($pass){
     return password_hash($pass,CRYPT_MD5);
 
 }
+public static function verifica_password($pass_login,$pass_bbdd){
 
+  return password_verify($pass_login,$pass_bbdd);
+
+}
 
 
 }
