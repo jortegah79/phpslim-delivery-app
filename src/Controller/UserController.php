@@ -76,6 +76,7 @@ class   UserController
 
       } else {
 
+        
         $response->getBody()->write(json_encode([], JSON_PRETTY_PRINT));
 
         return $response->withStatus(401);
