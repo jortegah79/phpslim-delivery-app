@@ -53,7 +53,10 @@ class UserModel extends MysqlModel
     public static function getByEmail($email)
     {
 
-        $sql = "select * from ". static::$tabla . " where email='".$email."'";;
+        $sql = "select u.id,u.name,u.lastname,u.email,u.phone,u.image,u.password,u.session_token,r.id as rid,r.name as rname,route,r.image as rimage from users u
+        join user_has_roles uhr on uhr.id_user=u.id
+        join roles r on r.id=uhr.id_user
+        where u.email='".$email."'";
 
         return static::executeGetQuery($sql);
     }
